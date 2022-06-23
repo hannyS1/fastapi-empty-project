@@ -1,0 +1,23 @@
+services:
+    db:
+      image: postgres:10
+      ports:
+        - "5432:5432"
+      env_file:
+        - .env
+      volumes:
+        - ./postgres/db:/var/lib/postgresql/data
+
+    app:
+      build:
+        context: ./
+        dockerfile: Dockerfile
+      entrypoint: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+      volumes:
+        - ./:/server
+      depends_on:
+        - db
+      env_file:
+        - .env
+      ports:
+        - "8000:8000"
