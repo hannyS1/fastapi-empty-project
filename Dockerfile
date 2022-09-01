@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.10.5
 
 RUN apt-get update && apt-get install netcat libgdal-dev -y && apt-get autoremove -y && apt-get clean
 
