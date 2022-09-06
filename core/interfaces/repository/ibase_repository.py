@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod, ABCMeta
 from typing import Generic, TypeVar, List, Optional
 
 from config.database import Base
@@ -7,7 +7,7 @@ from core.interfaces.specifications.ispecification import ISpecification
 T = TypeVar("T", bound=Base)
 
 
-class IBaseRepository(Generic[T], ABC):
+class IBaseRepository(Generic[T], metaclass=ABCMeta):
 
     @abstractmethod
     def get_all(

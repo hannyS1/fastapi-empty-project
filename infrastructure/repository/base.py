@@ -1,4 +1,3 @@
-import logging
 from typing import TypeVar, Generic, Optional, get_args, List
 
 from sqlalchemy.orm import Query
@@ -10,7 +9,7 @@ from core.interfaces.specifications.ispecification import ISpecification
 T = TypeVar("T", bound=Base)
 
 
-class BaseRepository(Generic[T], IBaseRepository[T]):
+class BaseRepository(Generic[T]):
     def __init__(self):
         self.db = SessionLocal()
         self.Model = get_args(type(self).__orig_bases__[0])[0]
@@ -35,8 +34,6 @@ class BaseRepository(Generic[T], IBaseRepository[T]):
         if specification.get_pagination() is not None:
             parameters = specification.get_pagination().get_parameters()
             query = query.limit(parameters.limit).offset(parameters.offset)
-
-        print(query)
 
         return query.all()
 
